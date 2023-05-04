@@ -14,9 +14,11 @@ import spacy
 
 def parse_address(address):
 
-    nlp=spacy.load("D:\Surya\College\Major Project\Address Parser\models\models\model-best")
+    nlp=spacy.load(r"D:\Surya\College\Major Project\Address Parser\ind-models\model-best")
     doc=nlp(address)
+    #print(doc)
     ent_list=[(ent.text, ent.label_) for ent in doc.ents]
+    #print(ent_list)
     for i in range(len(ent_list)):
         ent_list[i]+=('is',)
     return ent_list

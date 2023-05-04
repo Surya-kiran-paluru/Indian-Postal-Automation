@@ -1,11 +1,9 @@
 import numpy as np
 import keras_ocr
-import sys # to access the system
-import cv2
 import tkinter as tk
 from tkinter import filedialog
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+# import matplotlib.pyplot as plt
+# import matplotlib.image as mpimg
 
 
 
@@ -69,6 +67,7 @@ def segmentLines(box_group):
 
 def load_model():
     return keras_ocr.pipeline.Pipeline()
+
 def get_text(pipeline):
 
     res_pred = []
@@ -112,3 +111,42 @@ def get_text(pipeline):
                     res_pred.append(text)
                     break
     return res_pred            
+
+
+def get_text_test(pipeline,image_path):
+
+    res_pred = []
+
+    pred = detect_w_keras(pipeline,image_path)
+
+    pred = pred[0]
+
+    box_group = np.array([x[1] for x in pred])
+
+    s,l = segmentLines(box_group)
+
+    for i in range(len(l)):
+        l[i].sort()
+
+
+    # image = mpimg.imread(image_path)
+    # plt.imshow(image)
+    # plt.show()
+
+    # import os
+    # clear = lambda: os.system('cls')
+    # clear()
+
+    for ran in l:
+        s_sub = s[ran[0]:ran[-1]+1]
+        #print(s_sub)
+        
+        for x in s_sub:
+            
+            for text,box in pred:
+
+                if int(x[0][0]) == int(box[0][0]) and int(x[0][1]) == int(box[0][1]):
+                    res_pred.append(text)
+                    break
+    return res_pred            
+
