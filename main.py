@@ -2,6 +2,7 @@ import OCR_model as ocr
 import Address_parser as ap
 import Knowledge_graph as kg
 from spell_check import SpellCheck 
+import Location as loc_api
 
 
 model = ocr.load_model()
@@ -25,7 +26,13 @@ print(output_ocr)
 
 output_ap = ap.parse_address(output_ocr)
 
-#print(output_ap)
+#print(output_ap)x
 
-kg.build_Kgraph(output_ap)
+Knowledgde_Graph = kg.build_Kgraph(output_ap)
+
+#kg.show_KG(Knowledgde_Graph)
+
+city = kg.get_city(Knowledgde_Graph)[0]
+
+print(loc_api.get_coordinates(city))
 
