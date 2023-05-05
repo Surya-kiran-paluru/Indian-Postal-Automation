@@ -60,8 +60,27 @@ class UI(QMainWindow):
         print(f_output_ocr)
         output_ap = ap.parse_address(f_output_ocr)
         print(output_ap)
-        parser_out=""
+        l=[]
+        c=0
         for i in output_ap:
+            if i[1]=='CITY':
+                l.append(c)
+            c=c+1
+        f_output_ap=[]
+        if len(l)>1:
+            cnt=0
+            for i in output_ap:
+                if cnt==l[0]:
+                    f_output_ap.append((output_ap[cnt][0], 'AREA', output_ap[cnt][2]))
+                else:
+                    f_output_ap.append(output_ap[cnt])
+                cnt=cnt+1
+        else:
+            f_output_ap=output_ap
+
+        print(f_output_ap)
+        parser_out=""
+        for i in f_output_ap:
             parser_out=parser_out+"[ "
             parser_out=parser_out+i[1]+" - "
             parser_out=parser_out+i[0]+" "
@@ -75,7 +94,7 @@ class UI(QMainWindow):
         # self.knowledge_label.setPixmap(self.pixmap2)
         # self.knowledge_label.setScaledContents(True)
 
-        Knowledgde_Graph = kg.build_Kgraph(output_ap)
+        Knowledgde_Graph = kg.build_Kgraph(f_output_ap)
         #kg.show_KG(Knowledgde_Graph)
 
         plt=kg.show_KG(Knowledgde_Graph)
