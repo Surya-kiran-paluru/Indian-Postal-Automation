@@ -23,9 +23,15 @@ def build_Kgraph(entity_pairs):
 
     G=nx.from_pandas_edgelist(kg_df, "source", "target", edge_attr=True, create_using=nx.MultiDiGraph())
 
+    return G
+
+def show_KG(G):
+
     plt.figure(figsize=(10,10))
 
     pos = nx.spring_layout(G)
     nx.draw_spring(G, with_labels=True, node_color='skyblue', edge_cmap=plt.cm.Blues)
     plt.show()
 
+def get_city(G):
+    return list(nx.neighbors(G,"CITY"))
