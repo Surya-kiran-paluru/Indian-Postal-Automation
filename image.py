@@ -34,7 +34,7 @@ class UI(QMainWindow):
         self.show()
     
     def clicker(self):
-        fname=QFileDialog.getOpenFileName(self, "Open file", "All files (*)")
+        fname=QFileDialog.getOpenFileName(self, "Open file")
         self.pixmap=QPixmap(fname[0])
         global fpath
         fpath=fname[0]
