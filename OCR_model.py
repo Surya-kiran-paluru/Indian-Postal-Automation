@@ -68,7 +68,7 @@ def segmentLines(box_group):
 def load_model():
     return keras_ocr.pipeline.Pipeline()
 
-def get_text(pipeline):
+def get_text(pipeline, img_path):
 
     res_pred = []
 
@@ -77,8 +77,8 @@ def get_text(pipeline):
     root = tk.Tk()
     root.withdraw()
 
-    image_path = filedialog.askopenfilename()
-
+    #image_path = filedialog.askopenfilename()
+    image_path = img_path
     pred = detect_w_keras(pipeline,image_path)
 
     pred = pred[0]
