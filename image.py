@@ -51,9 +51,14 @@ class UI(QMainWindow):
         output_ocr = output_ocr.capitalize()
         self.ocr_out_label.setText(output_ocr)
         f_output_ocr=""
+        sp_cnt=0
         for i in output_ocr:
             if i == " ":
-                f_output_ocr=f_output_ocr + ", "
+                if sp_cnt > 0:
+                    f_output_ocr=f_output_ocr + ", "
+                else:
+                    f_output_ocr=f_output_ocr + " "
+                sp_cnt=sp_cnt+1
             else:
                 f_output_ocr = f_output_ocr + i
 
